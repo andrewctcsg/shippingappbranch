@@ -1,4 +1,4 @@
-package com.ctcglobal.bookstoreapp;
+package com.ctcglobal.shippingapp;
 
 import com.ctcglobal.bookstoreapp.model.Book;
 import com.ctcglobal.bookstoreapp.repo.BookRepository;
@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-class BookstoreApplicationTests {
+class ShippingApplicationTests {
 	@Autowired
 	private BookRepository bookRepository;
 	@Before

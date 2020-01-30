@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ctcglobal</groupId>
-	<artifactId>bookstore</artifactId>
+	<artifactId>shippingapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>bookstore</name>
+	<name>shippingapp</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

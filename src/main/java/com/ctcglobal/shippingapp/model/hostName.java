@@ -1,4 +1,4 @@
-package com.ctcglobal.bookstoreapp.model;
+package com.ctcglobal.shippingapp.model;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

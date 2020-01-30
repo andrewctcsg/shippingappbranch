@@ -1,8 +1,8 @@
-package com.ctcglobal.bookstoreapp.controller;
+package com.ctcglobal.shippingapp.controller;
 
-import com.ctcglobal.bookstoreapp.model.dateAndTime;
-import com.ctcglobal.bookstoreapp.model.health;
-import com.ctcglobal.bookstoreapp.model.hostName;
+import com.ctcglobal.shippingapp.model.dateAndTime;
+import com.ctcglobal.shippingapp.model.health;
+import com.ctcglobal.shippingapp.model.hostName;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,4 +1,4 @@
-package com.ctcglobal.bookstoreapp.repo;
+package com.ctcglobal.shippingapp.repo;
 
 import com.ctcglobal.bookstoreapp.model.Book;
 import org.springframework.data.repository.CrudRepository;

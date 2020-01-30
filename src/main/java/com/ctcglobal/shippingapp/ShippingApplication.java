@@ -1,13 +1,13 @@
-package com.ctcglobal.bookstoreapp;
+package com.ctcglobal.shippingapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BookstoreApplication {
+public class ShippingApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BookstoreApplication.class, args);
+		SpringApplication.run(ShippingApplication.class, args);
 	}
 
 }

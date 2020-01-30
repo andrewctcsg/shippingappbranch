@@ -1,4 +1,4 @@
-package com.ctcglobal.bookstoreapp.model;
+package com.ctcglobal.shippingapp.model;
 
 public class health {
     public String getStatus() {
