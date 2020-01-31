@@ -1,13 +1,11 @@
+/*
 package com.ctcglobal.shippingapp.model;
-
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "book_tbl")
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
     private int cost;
@@ -45,3 +43,4 @@ public class Book {
 
 
 }
+*/

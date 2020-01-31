@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/")
-public class UserController {
+@RequestMapping("/api")
+public class AppController {
 
     private final dateAndTime datentime = new dateAndTime();
     private final hostName host = new hostName();
