@@ -1,38 +1,28 @@
 package com.ctcglobal.shippingapp.model;
 
-import javax.persistence.*;
+import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "orders")
-public class Order {
-
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
-
+public class OrderView {
     private String name;
     private String sourcePin;
     private String destPin;
     private String orderTime;
+    private String currentTime;
     private int weight;
     private int arrived;
     private double distance;
+    private double currentDistance;
 
-    public Order () {}
-
-    public Order(String name, String sourcePin, String destPin, String orderTime, int weight, double distance) {
-
+    public OrderView(String name, String sourcePin, String destPin, String orderTime, int weight, int arrived, double distance, double currentDistance) {
         this.name = name;
         this.sourcePin = sourcePin;
         this.destPin = destPin;
-        this.weight = weight;
-        this.arrived = 0;
         this.orderTime = orderTime;
+        this.currentTime = new dateAndTime().getDateTime();
+        this.weight = weight;
+        this.arrived = arrived;
         this.distance = distance;
-    }
-
-    public int getId() {
-        return id;
+        this.currentDistance = currentDistance;
     }
 
     public String getName() {
@@ -59,6 +49,14 @@ public class Order {
         this.destPin = destPin;
     }
 
+    public String getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(String orderTime) {
+        this.orderTime = orderTime;
+    }
+
     public int getWeight() {
         return weight;
     }
@@ -71,19 +69,8 @@ public class Order {
         return arrived;
     }
 
-    public void checkArrived(double distanceLeft) {
-        if(distanceLeft == 0)
-        {
-            this.arrived = 1;
-        }
-    }
-
-    public String getOrderTime() {
-        return orderTime;
-    }
-
-    public void setOrderTime(String orderTime) {
-        this.orderTime = orderTime;
+    public void setArrived(int arrived) {
+        this.arrived = arrived;
     }
 
     public double getDistance() {
@@ -92,5 +79,21 @@ public class Order {
 
     public void setDistance(double distance) {
         this.distance = distance;
+    }
+
+    public double getCurrentDistance() {
+        return currentDistance;
+    }
+
+    public void setCurrentDistance(double currentDistance) {
+        this.currentDistance = currentDistance;
+    }
+
+    public String getCurrentTime() {
+        return currentTime;
+    }
+
+    public void setCurrentTime(String currentTime) {
+        this.currentTime = currentTime;
     }
 }

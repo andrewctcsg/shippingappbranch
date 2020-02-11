@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface ShippingtRepository extends JpaRepository<Shippingt, String> {
 
-    /*@Query("select aa110b from shipping_time where destination='vv411j'")
-    public String findDestination();*/
     Shippingt findByDestination(String Destination);
 
 
