@@ -4,37 +4,54 @@ import com.ctcglobal.shippingapp.model.*;
 import com.ctcglobal.shippingapp.repo.OrderRepository;
 import com.ctcglobal.shippingapp.repo.ShippingChartRepository;
 import com.ctcglobal.shippingapp.repo.ShippingtRepository;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/shipping")
-public class ShippingController {
+@Controller
+@RequestMapping("/shipping")
+public class ShippinghtmlController {
 
+    private static String Response;
     private ShippingChartRepository shippingChartRepository;
     private OrderRepository orderRepository;
     private final dateAndTime datentime = new dateAndTime();
 
-    public ShippingController(ShippingChartRepository shippingChartRepository, OrderRepository orderRepository) {
+    public ShippinghtmlController(ShippingChartRepository shippingChartRepository, OrderRepository orderRepository) {
         this.shippingChartRepository = shippingChartRepository;
         this.orderRepository = orderRepository;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    private static void getEmployees()
+    {
+        final String uri = "https://reqres.in/api/users/2";
+
+        RestTemplate restTemplate = new RestTemplate();
+        Response = restTemplate.getForObject(uri, String.class);
+
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/gethealth", method = RequestMethod.GET)
+    public String readMe() {
+        getEmployees();
+        return Response;
+    }
+
+    /*@RequestMapping(value = "", method = RequestMethod.GET)
     public String readMe() {
         return "hello this is a placeholder readme. /date for date, /health is for app health and /host for hostname";
     }
 
+    @ResponseBody
     @GetMapping("/locations/all")
     public List < ShippingChart > getAll() {
         return shippingChartRepository.findAll();
     }
 
-
-    @GetMapping("/locations/distance/{destination}/{source}")
     public double getDistance(@PathVariable String destination, @PathVariable String source) {
         int x1 = shippingChartRepository.findByLocation(destination).getX();
         int y1 = shippingChartRepository.findByLocation(destination).getY();
@@ -63,18 +80,21 @@ public class ShippingController {
         return Math.sqrt (Math.pow(x3, 2) + Math.pow(y3, 2));
     }
 
+    @ResponseBody
     @PostMapping("/order/add")
     public Order addOrder(@RequestBody OrderForm orderForm) {
-       Order newOrder = new Order(orderForm.getName(), orderForm.getSourcePin(), orderForm.getDestPin(), orderForm.getOrderTime(), orderForm.getWeight(), getDistance(orderForm.getSourcePin(), orderForm.getDestPin()));
-       orderRepository.save(newOrder);
-       return newOrder;
+        Order newOrder = new Order(orderForm.getName(), orderForm.getSourcePin(), orderForm.getDestPin(), orderForm.getOrderTime(), orderForm.getWeight(), getDistance(orderForm.getSourcePin(), orderForm.getDestPin()));
+        orderRepository.save(newOrder);
+        return newOrder;
     }
 
+    @ResponseBody
     @GetMapping("/order/all")
     public List < Order > getAllOrders() {
         return orderRepository.findAll();
     }
 
+    @ResponseBody
     @PutMapping("/order/check/{id}")
     public OrderView checkOrders(@PathVariable int id) {
         Order existOrder = orderRepository.findById(id);
@@ -94,10 +114,11 @@ public class ShippingController {
         return currOrder;
     }
 
+    @ResponseBody
     @DeleteMapping("/order/delete/{id}")
     public Order deleteOrders(@PathVariable int id) {
         Order existOrder = orderRepository.findById(id);
         orderRepository.delete(existOrder);
         return existOrder;
-    }
+    }*/
 }

@@ -3,8 +3,10 @@ package com.ctcglobal.shippingapp.controller;
 import com.ctcglobal.shippingapp.model.dateAndTime;
 import com.ctcglobal.shippingapp.model.health;
 import com.ctcglobal.shippingapp.model.hostName;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -35,4 +37,6 @@ public class AppController {
     public health apphealth() {
         return apphealth;
     }
+
+
 }
