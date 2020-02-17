@@ -4,12 +4,14 @@ import com.ctcglobal.shippingapp.model.*;
 import com.ctcglobal.shippingapp.repo.OrderRepository;
 import com.ctcglobal.shippingapp.repo.ShippingChartRepository;
 import com.ctcglobal.shippingapp.repo.ShippingtRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+
+import com.google.gson.Gson;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/shipping")
@@ -25,21 +27,35 @@ public class ShippinghtmlController {
         this.orderRepository = orderRepository;
     }
 
-    private static void getEmployees()
-    {
-        final String uri = "https://reqres.in/api/users/2";
-
-        RestTemplate restTemplate = new RestTemplate();
-        Response = restTemplate.getForObject(uri, String.class);
-
-    }
-
     @ResponseBody
     @RequestMapping(value = "/gethealth", method = RequestMethod.GET)
-    public String readMe() {
-        getEmployees();
-        return Response;
+    public String responsetest() {
+        final String uri = "http://shippingapp-shipping-springboot.apps.ocp4.sgctcdemo.local/api/health";
+
+        RestTemplate restTemplate = new RestTemplate();
+        try{
+            Response = restTemplate.getForObject(uri, String.class);
+            Gson gson = new Gson();
+            health name = gson.fromJson(Response, health.class);
+            if (name.getStatus().equals("healthy"))
+           { return "other app is live";}
+            return "other app is not healthy";}
+        catch(Exception e) {
+            return "other app is not responding";
+        }
     }
+
+    /*@ResponseBody
+    @GetMapping("/healthcheck")
+    public String responseinside() {
+
+        getEmployees();
+
+        objmapper.writeValue(Response);
+
+
+        return shippingChartRepository.findAll();
+    }*/
 
     /*@RequestMapping(value = "", method = RequestMethod.GET)
     public String readMe() {

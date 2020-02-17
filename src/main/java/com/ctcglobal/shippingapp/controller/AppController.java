@@ -15,7 +15,7 @@ public class AppController {
 
     private final dateAndTime datentime = new dateAndTime();
     private final hostName host = new hostName();
-    private final health apphealth = new health();
+    private health apphealth = new health();
 
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -35,6 +35,7 @@ public class AppController {
 
     @RequestMapping(value = "/health", method = RequestMethod.GET)
     public health apphealth() {
+        apphealth.setStatus("healthy");
         return apphealth;
     }
 
