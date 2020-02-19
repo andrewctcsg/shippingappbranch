@@ -15,7 +15,7 @@ public class AppController {
 
     private final dateAndTime datentime = new dateAndTime();
     private final hostName host = new hostName();
-    private health apphealth = new health();
+    private health apphealth = new health("not ready");
 
 
     @RequestMapping(value = "", method = RequestMethod.GET)
