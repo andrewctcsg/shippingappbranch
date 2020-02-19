@@ -11,9 +11,9 @@ public class OrderView {
     private int weight;
     private int arrived;
     private double distance;
-    private double currentDistance;
+    private double distanceLeft;
 
-    public OrderView(String name, String sourcePin, String destPin, String orderTime, int weight, int arrived, double distance, double currentDistance) {
+    public OrderView(String name, String sourcePin, String destPin, String orderTime, int weight, int arrived, double distance, double distanceLeft) {
         this.name = name;
         this.sourcePin = sourcePin;
         this.destPin = destPin;
@@ -22,7 +22,7 @@ public class OrderView {
         this.weight = weight;
         this.arrived = arrived;
         this.distance = distance;
-        this.currentDistance = currentDistance;
+        this.distanceLeft = distanceLeft;
     }
 
     public String getName() {
@@ -81,12 +81,12 @@ public class OrderView {
         this.distance = distance;
     }
 
-    public double getCurrentDistance() {
-        return currentDistance;
+    public double getDistanceLeft() {
+        return distanceLeft;
     }
 
-    public void setCurrentDistance(double currentDistance) {
-        this.currentDistance = currentDistance;
+    public void setDistanceLeft(double distanceLeft) {
+        this.distanceLeft = distanceLeft;
     }
 
     public String getCurrentTime() {
