@@ -5,6 +5,7 @@ import com.ctcglobal.shippingapp.repo.OrderRepository;
 import com.ctcglobal.shippingapp.repo.ShippingChartRepository;
 import com.ctcglobal.shippingapp.repo.ShippingtRepository;
 import com.google.gson.Gson;
+import org.apache.catalina.connector.Response;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -99,9 +100,30 @@ public class ShippingController {
         return null;
     }
 
+    @PostMapping("/order/multiadd")
+    public List <Order> addMultipleOrders(@RequestBody List <OrderForm> orderForms) {
+        List<Order> allNewOrders = new java.util.ArrayList<>(Collections.emptyList());
+        for(OrderForm orderForm:orderForms) {
+            if ((checkLocation(orderForm.getDestPin()) || checkOtherLocation(orderForm.getDestPin())) &&
+                    ((checkLocation(orderForm.getSourcePin())) || checkOtherLocation(orderForm.getSourcePin()))) {
+                Order newOrder = new Order(orderForm.getName(), orderForm.getSourcePin(), orderForm.getDestPin(), orderForm.getOrderTime(), orderForm.getWeight(), getDistance(orderForm.getSourcePin(), orderForm.getDestPin()));
+                orderRepository.save(newOrder);
+                allNewOrders.add(newOrder);
+            }
+            allNewOrders.add(null);
+        }
+        return allNewOrders;
+    }
+
     @GetMapping("/order/all")
     public List < Order > getAllOrders() {
         return orderRepository.findAll();
+    }
+
+    @GetMapping("/order/{name}")
+    public Order getOneOrder(@PathVariable String name)
+    {
+        return  orderRepository.findByName(name);
     }
 
     @PutMapping("/order/check/{id}")
@@ -147,9 +169,9 @@ public class ShippingController {
         return allOrderView;
     }
 
-    @DeleteMapping("/order/delete/{id}")
-    public Order deleteOrders(@PathVariable int id) {
-        Order existOrder = orderRepository.findById(id);
+    @DeleteMapping("/order/delete/{name}")
+    public Order deleteOrders(@PathVariable String name) {
+        Order existOrder = orderRepository.findByName(name);
         orderRepository.delete(existOrder);
         return existOrder;
     }
@@ -177,14 +199,54 @@ public class ShippingController {
         }
     }
 
-    public boolean checkLocation(String location) {
-        boolean exists = shippingChartRepository.existsShippingChartByLocation(location);
-        return exists;
+    @RequestMapping(value = "/other/health", method = RequestMethod.GET)
+    public String checkOtherHealth() {
+        final String uri = "http://django-psql-example-django-deliveries-4.apps.ocp4.sgctcdemo.local/deliveries/health/";
+        RestTemplate restTemplate = new RestTemplate();
+        try{
+            String Response = restTemplate.getForObject(uri, String.class);
+            Gson gson = new Gson();
+            health otherHealth = gson.fromJson(Response, health.class);
+            if(otherHealth.getStatus().equals("Healthy")) {
+                return "Other app is healthy";}
+            else {
+                return "Other app is responding but not healthy";}
+            }
+        catch(Exception e) {
+            return "Other app is not responding";
+        }
     }
 
-    public boolean checkOtherLocation(String location) {
-        boolean exists = shippingChartRepository.existsShippingChartByLocation(location);
-        return exists;
+    @RequestMapping(value = "/locations/check/{location}", method = RequestMethod.GET)
+    public boolean checkLocation(@PathVariable String location) {
+        return shippingChartRepository.existsShippingChartByLocation(location);
     }
 
+    @RequestMapping(value = "/locations/checkother/{location}", method = RequestMethod.GET)
+    public boolean checkOtherLocation(@PathVariable String location) {
+        return false;
+    }
+
+    /*@RequestMapping(value = "/locations/checkother/{location}", method = RequestMethod.GET)
+    public boolean checkOtherLocation(@PathVariable String location) {
+        String uri = "http://django-psql-example-django-deliveries-3.apps.ocp4.sgctcdemo.local/deliveries/" + location;
+        RestTemplate restTemplate = new RestTemplate();
+        try {
+            String Response = restTemplate.getForObject(uri, String.class);
+            Gson gson = new Gson();
+            health otherHealth = gson.fromJson(Response, health.class);
+            return otherHealth.getStatus().equals("Healthy");
+        }
+        catch(Exception e) {
+            return false;
+        }
+
+        return shippingChartRepository.existsShippingChartByLocation(location);
+    }*/
+
+   /* @RequestMapping(value = "/order/name/{name}", method = RequestMethod.GET)
+    public boolean checkOrderName(@PathVariable String name)  {
+        return orderRepository.existsOrderByName(name);
+    }
+*/
 }

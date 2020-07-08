@@ -1,7 +1,9 @@
 package com.ctcglobal.shippingapp.model;
 
-public class health {
+import com.google.gson.annotations.SerializedName;
 
+public class health {
+    @SerializedName("App Status")
     private String status;
 
     public health (String status)

@@ -8,4 +8,5 @@ public interface ShippingChartRepository extends JpaRepository<ShippingChart, St
     ShippingChart findByLocation(String Location);
     boolean existsShippingChartByLocation(String Location);
 
+
 }
